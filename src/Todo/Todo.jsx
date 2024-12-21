@@ -44,16 +44,16 @@ const Todo = () => {
         return () => clearInterval(interval);
     }, [])
 
-    // const handleDeleteTask = (value) =>{
-    //     console.log(task)
-    //     console.log(value)
+    const handleDeleteTask = (value) =>{
+        console.log(task)
+        console.log(value)
 
-    //     const updatedTask = task.filter((curTask)=>{
-    //         return curTask !== value
-    //     })
+        const updatedTask = task.filter((curTask)=>{
+            return curTask !== value
+        })
 
-    //     setTask(updatedTask)
-    // }
+        setTask(updatedTask)
+    }
 
     return (
         <section className='todo-container'>
