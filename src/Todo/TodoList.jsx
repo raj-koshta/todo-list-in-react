@@ -1,11 +1,11 @@
 import React from 'react'
 import { MdCheck, MdDeleteForever } from "react-icons/md";
 
-const TodoList = ({index, data, onHandleDeleteTodo}) => {
+const TodoList = ({ data, onHandleDeleteTodo, onHandleCheckedTodo, checked}) => {
     return (
-        <li key={index} className='todo-item'>
-            <span>{data}</span>
-            <button className='check-btn'>
+        <li className='todo-item'>
+            <span className={checked ? "checkList" : "notCheckList"}>{data}</span>
+            <button className='check-btn' onClick={()=> onHandleCheckedTodo(data)}>
                 {<MdCheck />}
             </button>
             <button onClick={() => onHandleDeleteTodo(data)} className='delete-btn'>

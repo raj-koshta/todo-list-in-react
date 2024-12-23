@@ -10,28 +10,47 @@ const Todo = () => {
     const [task, setTask] = useState([]);
 
     const handleFormSubmit = (inputValue) => {
+        const {id, content, checked} = inputValue;
 
-        if (!inputValue) return;
+        console.log(!inputValue.content)
+        console.log(inputValue.content)
+        if (!inputValue.content) return;
 
-        if (task.includes(inputValue)) {
-            return;
-        }
+        // if (task.includes(inputValue.content)) return;
+
+        const ifTodoContentMatched = task.find((curTask)=>curTask.content.toUpperCase() === content.toUpperCase());
+        if(ifTodoContentMatched){
+            return;  
+        } 
 
         setTask((prevTask) =>
-            [...prevTask, inputValue]
+            // in new ES6 If the Id and valus are same so we do not need to write it two time
+            [...prevTask, {id, content, checked}]
+        
+            // [...prevTask, {id: id, content: content, checked: checked}]
         )
 
     }
 
     const handleDeleteTask = (value) =>{
-        console.log(task)
-        console.log(value)
 
         const updatedTask = task.filter((curTask)=>{
-            return curTask !== value
+            return curTask.content !== value
         })
 
         setTask(updatedTask)
+    }
+
+    const handleCheckedTodo = (content) =>{
+        const updatedTask = task.map((curTask)=>{
+            if(curTask.content === content){
+                return { ...curTask, checked: !curTask.checked };
+            } else {
+                return curTask;
+            }
+        })
+
+        setTask(updatedTask);
     }
 
     return (
@@ -44,9 +63,13 @@ const Todo = () => {
             <section className='myUnOrdList'>
                 <ul>
                     {
-                        task.map((curTask, index) => {
-                            return <TodoList key={index} data={curTask}
+                        task.map((curTask) => {
+                            return <TodoList 
+                                key={curTask.id} 
+                                data={curTask.content}
+                                checked={curTask.checked}
                                 onHandleDeleteTodo={handleDeleteTask}
+                                onHandleCheckedTodo={handleCheckedTodo}
                              />
                         })
                     }
